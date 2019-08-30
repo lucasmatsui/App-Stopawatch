@@ -1,4 +1,4 @@
-# Mini App Cronometro
+# Mini App Cronômetro
 - Criado com React native com Hooks :heart:
 
 ## Para utilizar
