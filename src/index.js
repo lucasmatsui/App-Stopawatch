@@ -36,12 +36,13 @@ export default function App(){
         setNow(new Date().getTime());
         setTimer(setInterval(() => {
           setNow(new Date().getTime() );
-        }, 100));
+        }, 10));
     }
   }
 
   function handleReset() {
     clearInterval(timer);
+    setNameButton("Iniciar");
     setTimeBefore(0);
     setStart(0);
     setNow(0);
