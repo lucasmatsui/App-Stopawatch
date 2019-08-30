@@ -8,4 +8,4 @@
   
  #### Preview
  
-![AppCroRezised](https://user-images.githubusercontent.com/31348487/64018698-85b3bc00-cb03-11e9-9c35-306b2a66787c.png)
+![AppCronometroATT](https://user-images.githubusercontent.com/31348487/64031748-6e82c780-cb1f-11e9-8562-d24020836153.png)
