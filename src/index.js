@@ -6,50 +6,63 @@
  * @flow
  */
 
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import {StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native';
+
+
+import Timer from './components/Timer';
 
 export default function App(){
 
-  const [time, setTime] = useState(0);
-  const [timer , setTimer] = useState(null);
-  const [botao, setBotao] = useState('Iniciar');
+  const [start, setStart] = useState(0);
+  const [now, setNow] = useState(0);
+  const [timer, setTimer] = useState(null);
 
-  
-  function handleToggle() {
-    if(timer !== null ) {
+  const[timeBefore, setTimeBefore] = useState(0);
+
+  const [nameButton, setNameButton] = useState('Iniciar');
+
+  function handleStart() {
+    if(timer !== null) {
       clearInterval(timer);
+      setTimeBefore(time);
+      setStart(0);
+      setNow(0);
       setTimer(null);
-      setBotao('Iniciar');
+      setNameButton("Iniciar");
     } else {
-      setTimer(setInterval(() => {
-        setTime(time => time + 0.1);
-      }, 100));
-      setBotao('Pausar');
+        setNameButton("Pausar");
+        setStart(new Date().getTime());
+        setNow(new Date().getTime());
+        setTimer(setInterval(() => {
+          setNow(new Date().getTime() );
+        }, 100));
     }
   }
 
   function handleReset() {
-    if (timer != null) {
-      clearInterval(timer);
-      setTimer(null);
-    }
-    setTime(0);
-    setBotao('Iniciar');
+    clearInterval(timer);
+    setTimeBefore(0);
+    setStart(0);
+    setNow(0);
+    setTimer(null);
   }
 
+  const time = (now - start) + timeBefore;
+
   return (
+
     <>
       <StatusBar barStyle="light-content" backgroundColor="#2c1f30" />
       <View style={styles.body}>
         <View style={styles.cicle}>
-          <Text style={styles.timer}>{time.toFixed(2)}</Text>
+          <Timer interval={time}/>
         </View>
         <View style={styles.buttonArea}>
-            <TouchableOpacity style={styles.buttonToggle} onPress={handleToggle} >
-              <Text style={styles.toggleText}>{botao}</Text>
+            <TouchableOpacity style={styles.buttonToggle} onPress={handleStart}  >
+              <Text style={styles.toggleText}>{nameButton}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonReset} onPress={handleReset}>
+            <TouchableOpacity style={styles.buttonReset} onPress={handleReset} >
               <Text style={styles.resetText}>Resetar</Text>
             </TouchableOpacity>
         </View>
@@ -75,12 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth:2,
     borderColor:"#C0A7CC"
-  },
-  timer: {
-    fontSize: 40,
-    color: "#C0A7CC",
-    letterSpacing: 3,
-    fontWeight: '700'
   },
   buttonArea: {
     marginTop: 150,
